@@ -15,20 +15,18 @@ export function getInterview(state, interview) {
   }
   const interviewObj = {
     student: interview.student,
-    interviewer: {
-      id: interview.interviewer,
-      name: state.interviewers[interview.interviewer].name,
-      avatar: state.interviewers[interview.interviewer].avatar,
-    },
+    interviewer: state.interviewers[interview.interviewer],
   };
   return interviewObj;
 }
+
 export function getInterviewersForDay(state, day) {
-  const selectedDay = state.days.filter((d) => d.name === day);
+  const selectedDay = state.days.find((d) => d.name === day);
   if (!selectedDay || !selectedDay.interviewers) {
     return [];
   }
-  const interviewers = selectedDay.interviewers.map(id => state.interviewers[id]);
+  const interviewers = selectedDay.interviewers.map((id) => {
+    return state.interviewers[id];
+  });
   return interviewers;
 }
-
